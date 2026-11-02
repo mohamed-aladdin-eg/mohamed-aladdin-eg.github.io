@@ -1721,6 +1721,43 @@
     .variant-switch button + button { border-left: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); }
     .variant-switch button.variant-on { background: var(--accent); color: var(--bg-primary); }
   </style>
+  <style id="viewerFitV25">
+    /* Project viewer: fits any screen, scrolls if taller, stays centred */
+    /* Header never wraps: on narrow screens the name stays on one line and the menu links make room */
+    header.glass-nav > div { flex-wrap: nowrap; }
+    header.glass-nav > div > div:last-child { flex-wrap: nowrap !important; flex-shrink: 0; }
+    #brandLogoTrigger { min-width: 0; flex-shrink: 1; }
+    #brandLogoTrigger > div:last-child { min-width: 0; }
+    #navBrandName, #navBrandRole { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #navContactBtn { white-space: nowrap; }
+    @media (max-width: 1023px) { body:has(#btnBackToGateway:not(.hidden)) #lsNavLinks { display: none !important; } }
+    @media (max-width: 900px) { #navBrandRole { display: none !important; } }
+    @media (max-width: 420px) {
+      #navBrandName { font-size: 12.5px; letter-spacing: .04em; }
+      #brandLogoTrigger { gap: 8px; }
+      #brandLogoTrigger > div:first-child { width: 34px; height: 34px; }
+      #navContactBtn { padding: 6px 11px; font-size: 10.5px; }
+      #btnBackToGateway { padding: 4px 8px; }
+      #headerBackThumbImg { display: none; }
+    }
+    #mediaViewerModal { z-index: 90 !important; }
+    body:has(#mediaViewerModal.flex) .ls-nudge { opacity: 0 !important; pointer-events: none !important; }
+    @media (max-width: 640px) {
+      .dept-photo-tab-card .truncate { white-space: normal; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.25; }
+    }
+    #mediaViewerModal { --viewer-h: 68svh; overflow-y: auto; align-items: flex-start !important; overscroll-behavior: contain; }
+    #mediaViewerModal > div { margin: auto; }
+    #viewerStage { min-height: 0 !important; max-height: none !important; }
+    .viewer-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
+    @media (max-width: 640px) {
+      #mediaViewerModal { --viewer-h: 64svh; padding: 10px !important; }
+      #mediaViewerModal > div > div:last-child { flex-direction: column; align-items: stretch; text-align: left; }
+      #mediaViewerModal > div > div:last-child > div:last-child { justify-content: center; flex-wrap: wrap; }
+      #mediaViewerModal > div > div:last-child > div:last-child > * { flex: 1 1 auto; text-align: center; justify-content: center; }
+      #mediaViewerModal > div > div:first-child { padding: 12px 14px; gap: 10px; }
+      #viewerTitle { font-size: 15px; line-height: 1.3; }
+    }
+  </style>
   <style id="mobileFitV22">
     /* Nothing may push the page wider than the phone screen (phones zoom the whole page out when that happens) */
     html, body { max-width: 100%; }
@@ -1787,7 +1824,7 @@
     
 <div id="lsNudge" class="ls-nudge" role="dialog" aria-label="Contact"></div>
   <!-- Dynamic Mouse Spotlight -->
-  <div id="cursorSpotlight" style="transform: translate3d(1491px, -302px, 0px);"></div>
+  <div id="cursorSpotlight" style="transform: translate3d(1569px, -300px, 0px);"></div>
   <!-- Animated aurora light behind the glass -->
   <div id="auroraBg" aria-hidden="true"><span class="aur a1"></span><span class="aur a2"></span><span class="aur a3"></span></div>
   <!-- Universal Image Picker for swapping any photo in Owner Mode -->
@@ -1900,7 +1937,7 @@
       <div class="flex items-center gap-1.5 sm:gap-2.5 flex-wrap">
         <button id="btnBackToGateway" type="button" onclick="showQuestionGateway()" class="hidden items-center gap-2 px-3 py-1.5 rounded-full text-xs font-extrabold border-2 shadow-lg transition hover:scale-105" style="border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--text-primary);">
           <img id="headerBackThumbImg" src="" alt="Home" class="w-6 h-6 rounded-full object-cover border acc-border" draggable="false">
-          <span>←<span class="hidden sm:inline"> 📁 Main 3D Folders</span></span>
+          <span>←<span class="hidden sm:inline"> Home</span></span>
         </button>
         <div id="headerFoldersNav" class="hidden 2xl:flex items-center gap-1.5"></div>
         <!-- Landscape style: minimal centered nav like the travel template -->
@@ -2090,20 +2127,20 @@
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
             <div role="button" tabindex="0" onclick="showQuestionGateway()" class="visual-return-hub-card group">
               <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden shrink-0 border-2 acc-border shadow-xl bg-black">
-                <img id="backGatewayCardThumb" src="" alt="Back to Main 3D Folders" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" draggable="false">
+                <img id="backGatewayCardThumb" src="" alt="Back to home" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" draggable="false">
                 <div class="media-shield"></div>
                 <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent"></div>
                 <span class="absolute bottom-1.5 left-1.5 right-1.5 text-[9px] font-extrabold uppercase tracking-wider text-center px-1.5 py-0.5 rounded bg-black/80 acc-text border acc-border40">
-                  📁 3D Home
+                  🏠 Home
                 </span>
                 
               </div>
               <div class="pr-1">
                 <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-extrabold accent-pill mb-1.5 shadow">
                   <span>←</span>
-                  <span data-bind-profile="backHubBadge">RETURN TO MAIN GATEWAY</span>
+                  <span data-bind-profile="backHubBadge">BACK TO HOME</span>
                 </div>
-                <h3 class="font-display text-base sm:text-xl font-extrabold text-white leading-snug ghov-acc-text transition" data-bind-profile="backHubTitle">Back to Interactive 3D Folders</h3>
+                <h3 class="font-display text-base sm:text-xl font-extrabold text-white leading-snug ghov-acc-text transition" data-bind-profile="backHubTitle">Back to All Work</h3>
                 <p class="text-[11px] sm:text-xs text-sec mt-0.5" data-bind-profile="backHubSub">"Selected Work" — Tap to switch category</p>
               </div>
             </div>
@@ -2214,7 +2251,7 @@
             Open External Link ↗
           </a>
           <button type="button" onclick="closeMediaViewer(); document.getElementById('contactSection').scrollIntoView({behavior:'smooth'});" class="accent-pill px-5 py-2.5 rounded-full text-xs font-extrabold">
-            Request Similar Project
+            <span data-bind-profile="viewerCtaText">Get in Touch</span>
           </button>
         </div>
       </div>
@@ -2339,8 +2376,8 @@
     "btsEyebrow": "BEHIND THE SCENES",
     "btsTitle": "On Set & In The Edit Suite",
     "btsSub": "Real moments from shoots, lighting setups and grading sessions.",
-    "backHubBadge": "RETURN TO MAIN GATEWAY",
-    "backHubTitle": "Back to Interactive 3D Folders",
+    "backHubBadge": "BACK TO HOME",
+    "backHubTitle": "Back to All Work",
     "backHubSub": "\"Selected Work\" — Tap to switch category",
     "switchDeptLabel": "📂 Switch Category (اضغط للتنقل السريع بالصور):",
     "vigraphReviewSub": "Delivered for commercial brands, real estate developers, and creative agencies — fast turnarounds and cinema-grade color.",
@@ -2373,6 +2410,7 @@
     "tcQuoteBtn": "Get in touch",
     "heroCta1": "Get in touch",
     "heroCta2": "Watch showreel",
+    "viewerCtaText": "Get in Touch",
     "ctaBadge1": "Replies within an hour",
     "ctaBadge2": "Open to collaborations",
     "ctaBadge3": "Cairo • Remote worldwide",
@@ -2416,7 +2454,7 @@
     "vigraphPortTag": "Selected Work",
     "vigraphPortTitle": "Latest Editing & Color Work",
     "vigraphReviewTitle": "100+ Client & Agency Deliveries",
-    "vigraphDeptBadge": "01 / Video Editing & Color Grading",
+    "vigraphDeptBadge": "02 / Video Editing & Color Grading",
     "vigraphHeroBadge": "DaVinci Resolve & Premiere Pro Studio",
     "vigraphWatchLabel": "Watch Showreel",
     "vigraphLeadBadge": "🎬 Post-Production Lead",
@@ -2441,7 +2479,7 @@
     "lensPkg2Price": "Full-Day Cinema Rig • Master Grade",
     "lensPkg3Price": "Multi-Location • Full Crew & Post",
     "judeSubRole": "COMMERCIAL & PRODUCT PHOTOGRAPHER",
-    "judeDeptBadge": "02 / Commercial Photography",
+    "judeDeptBadge": "01 / Commercial Photography",
     "judeViewBtn": "VIEW PORTFOLIO →",
     "judeBookBtn": "GET IN TOUCH",
     "judeBasedLabel": "BASED IN",
@@ -3218,8 +3256,8 @@
         btsEyebrow: 'BEHIND THE SCENES',
         btsTitle: 'On Set & In The Edit Suite',
         btsSub: 'Real moments from shoots, lighting setups and grading sessions.',
-        backHubBadge: 'RETURN TO MAIN GATEWAY',
-        backHubTitle: 'Back to Interactive 3D Folders',
+        backHubBadge: 'BACK TO HOME',
+        backHubTitle: 'Back to All Services',
         backHubSub: '"What does your project need?" — Tap to switch service',
         switchDeptLabel: '📂 Switch Service Studio Page (اضغط للتنقل السريع بالصور):',
         vigraphReviewSub: 'Trusted by commercial brands, real estate developers, and creative agencies for fast-turnaround timelines and cinema-grade color.',
@@ -3250,6 +3288,7 @@
         tcQuoteBtn: 'Get a quote',
         heroCta1: "Let's talk on WhatsApp",
         heroCta2: 'Watch showreel',
+        viewerCtaText: 'Request Similar Project',
         ctaBadge1: 'Reply within 1 hour',
         ctaBadge2: 'Free quote',
         ctaBadge3: 'Cairo • Remote worldwide',
@@ -4466,7 +4505,17 @@
       showToast('🔗 الأقسام بقت بنفس اللون الرئيسي');
     }
 
+    function tidyLegacyTexts() {
+      const p = state.profile || {};
+      if (p.backHubBadge === 'RETURN TO MAIN GATEWAY') p.backHubBadge = 'BACK TO HOME';
+      if (p.backHubTitle === 'Back to Interactive 3D Folders') p.backHubTitle = siteVariant() === 'portfolio' ? 'Back to All Work' : 'Back to All Services';
+      [['vigraphDeptBadge', 'editing'], ['judeDeptBadge', 'photography'], ['lensDeptBadge', 'videography']].forEach(([k, id]) => {
+        const srv = (state.services || []).find(x => x.id === id);
+        if (srv && srv.num && typeof p[k] === 'string' && /^\s*\d{1,2}\s*\/\s*/.test(p[k])) p[k] = p[k].replace(/^\s*\d{1,2}\s*\//, srv.num + ' /');
+      });
+    }
     function renderAll() {
+      try { tidyLegacyTexts(); } catch (_) {}
       applyTheme();
 
       // Owner Mode UI visibility
@@ -5584,7 +5633,7 @@
     }
 
     function showQuestionGateway() {
-      trigger3DPageFlip('Main 3D Folders Gateway', () => {
+      trigger3DPageFlip('Home', () => {
         isPortfolioViewOpen = false;
         renderAll();
       });
@@ -6330,6 +6379,33 @@
       return m ? m[1] : null;
     }
 
+    // Real shape of a Drive video, read from its preview frame (vertical Reels become tall frames automatically)
+    const _videoShape = {};
+    function fitViewerFrame(ratio) {
+      const f = document.querySelector('#viewerStage .viewer-frame');
+      if (!f || !(ratio > 0.2 && ratio < 5)) return;
+      f.style.aspectRatio = String(ratio);
+      f.style.width = 'min(100%, calc(var(--viewer-h) * ' + ratio.toFixed(4) + '))';
+    }
+    function detectVideoShape(dId, projId) {
+      if (_videoShape[dId]) { fitViewerFrame(_videoShape[dId]); return; }
+      const urls = ['https://drive.google.com/thumbnail?id=' + dId + '&sz=w400', 'https://lh3.googleusercontent.com/d/' + dId + '=w400'];
+      const tryAt = i => {
+        if (i >= urls.length) return;
+        const im = new Image();
+        im.referrerPolicy = 'no-referrer';
+        im.onload = () => {
+          if (!im.naturalWidth || !im.naturalHeight) return tryAt(i + 1);
+          const r = im.naturalWidth / im.naturalHeight;
+          _videoShape[dId] = r;
+          const still = (state.projects || []).find(p => p.id === projId);
+          if (document.querySelector('#viewerStage .viewer-frame') && still) fitViewerFrame(r);
+        };
+        im.onerror = () => tryAt(i + 1);
+        im.src = urls[i];
+      };
+      tryAt(0);
+    }
     function extractYouTubeId(url) {
       if (!url) return null;
       const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
@@ -6357,23 +6433,29 @@
       }
       const dId = extractDriveId(proj.link) || proj.driveId;
       const ytId = extractYouTubeId(proj.link);
+      // The video frame takes the project's own shape (9:16, 4:5, 1:1, 16:9) so the player fills it on every screen
+      const [aw, ah] = String(proj.aspect || '16:9').split(':').map(Number);
+      const ar = (aw > 0 && ah > 0) ? aw + ' / ' + ah : '16 / 9';
+      const frameStyle = 'aspect-ratio:' + ar + ';width:min(100%, calc(var(--viewer-h) * ' + (aw > 0 && ah > 0 ? (aw / ah).toFixed(4) : '1.7778') + '));';
 
       if (ytId) {
         stage.innerHTML = `
-          <div class="relative w-full aspect-16-9 bg-black">
+          <div class="viewer-frame relative bg-black mx-auto" style="${frameStyle}">
             <iframe src="https://www.youtube.com/embed/${ytId}?rel=0" class="w-full h-full border-0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
           </div>
         `;
         extBtn.href = proj.link;
         extBtn.classList.remove('hidden');
+        if (/youtube\.com\/shorts\//.test(proj.link || '')) fitViewerFrame(9 / 16);
       } else if (dId) {
         stage.innerHTML = `
-          <div class="relative w-full aspect-16-9 bg-black">
+          <div class="viewer-frame relative bg-black mx-auto" style="${frameStyle}">
             <iframe src="https://drive.google.com/file/d/${dId}/preview" class="w-full h-full border-0" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
             <div class="absolute top-0 right-0 w-24 h-16 z-30 bg-transparent" oncontextmenu="return blockMediaDownload(event)" onclick="event.stopPropagation(); showToast('🔒 Protected Stream — Download Disabled');"></div>
           </div>
         `;
         extBtn.classList.add('hidden');
+        detectVideoShape(dId, projId);
       } else {
         const imgSrc = resolveImage(proj);
         stage.innerHTML = `
@@ -7571,8 +7653,11 @@
     // TWO VERSIONS OF THE SAME SITE: PORTFOLIO (showcase wording) / FREELANCE (client wording)
     // Photos, projects and design are shared — only these texts change between the two.
     // =====================================================================
-    const VARIANT_KEYS = ["navCtaText", "backHubSub", "switchDeptLabel", "vigraphReviewSub", "whatsappUrl", "waDefaultMsg", "whatsappBtnLabel", "whatsappSubLabel", "badge", "pitch", "questionEyebrow", "questionTitle", "questionSub", "lsTagline", "lsChipSub", "lsFeatHeading", "lsFeatTitle", "lsFeatBtn", "tcOpenBtn", "tcQuoteBtn", "heroCta1", "ctaBadge1", "ctaBadge2", "ctaBigBtn", "lsWorkCtaTitle", "lsWorkCtaSub", "lsWorkCtaBtn", "lsWorkCtaBack", "waServiceMsg", "nudgeTitle", "nudgeText", "nudgeBtn", "tcAllBtn", "contactEyebrow", "contactTitle", "contactSub", "vigraphHeroTitle", "vigraphBtnText", "vigraphAboutTitle", "vigraphPortTag", "vigraphReviewTitle", "vigraphContactBtn", "lensBookBtn1", "lensBookBtn2", "lensPortTag", "lensPortTitle", "lensEyebrow", "lensHeroMain", "lensPkgEyebrow", "lensPkgTitle", "lensPkgBookBtn", "judeBookBtn"];
+    const VARIANT_KEYS = ["viewerCtaText", "backHubBadge", "backHubTitle", "navCtaText", "backHubSub", "switchDeptLabel", "vigraphReviewSub", "whatsappUrl", "waDefaultMsg", "whatsappBtnLabel", "whatsappSubLabel", "badge", "pitch", "questionEyebrow", "questionTitle", "questionSub", "lsTagline", "lsChipSub", "lsFeatHeading", "lsFeatTitle", "lsFeatBtn", "tcOpenBtn", "tcQuoteBtn", "heroCta1", "ctaBadge1", "ctaBadge2", "ctaBigBtn", "lsWorkCtaTitle", "lsWorkCtaSub", "lsWorkCtaBtn", "lsWorkCtaBack", "waServiceMsg", "nudgeTitle", "nudgeText", "nudgeBtn", "tcAllBtn", "contactEyebrow", "contactTitle", "contactSub", "vigraphHeroTitle", "vigraphBtnText", "vigraphAboutTitle", "vigraphPortTag", "vigraphReviewTitle", "vigraphContactBtn", "lensBookBtn1", "lensBookBtn2", "lensPortTag", "lensPortTitle", "lensEyebrow", "lensHeroMain", "lensPkgEyebrow", "lensPkgTitle", "lensPkgBookBtn", "judeBookBtn"];
     const PORTFOLIO_TEXTS = {
+      "backHubBadge": "BACK TO HOME",
+      "backHubTitle": "Back to All Work",
+      "viewerCtaText": "Get in Touch",
       "navCtaText": "Get in Touch",
       "backHubSub": "\"Selected Work\" — Tap to switch category",
       "switchDeptLabel": "📂 Switch Category (اضغط للتنقل السريع بالصور):",
@@ -7633,12 +7718,22 @@
       if (!state.profile.variantTexts) state.profile.variantTexts = {};
       state.profile.variantTexts[v] = snap;
     }
+    function migrateVariantTexts() {
+      if (siteVariant() !== 'portfolio') return;
+      const saved = (state.profile.variantTexts || {}).portfolio || {};
+      Object.keys(PORTFOLIO_TEXTS).forEach(k => { if (!(k in saved)) state.profile[k] = PORTFOLIO_TEXTS[k]; });
+    }
     function setSiteVariant(v) {
       if (v === siteVariant()) { renderVariantButtons(); return; }
       snapshotVariantTexts();
       const saved = (state.profile.variantTexts || {})[v];
       if (saved && Object.keys(saved).length) {
-        VARIANT_KEYS.forEach(k => { if (k in saved) state.profile[k] = saved[k]; else delete state.profile[k]; });
+        VARIANT_KEYS.forEach(k => {
+          if (k in saved) state.profile[k] = saved[k];
+          else if (v === 'portfolio' && k in PORTFOLIO_TEXTS) state.profile[k] = PORTFOLIO_TEXTS[k];
+          else if (DEFAULT_STATE.profile[k] !== undefined) state.profile[k] = DEFAULT_STATE.profile[k];
+          else delete state.profile[k];
+        });
       } else if (v === 'portfolio') {
         Object.keys(PORTFOLIO_TEXTS).forEach(k => { state.profile[k] = PORTFOLIO_TEXTS[k]; });
       }
@@ -7853,6 +7948,7 @@
     }
 
     // Initialize + Auto-Run Lightweight Multi-Device Opening Gate + Live Clock Watcher
+    try { migrateVariantTexts(); } catch (_) {}
     renderAll();
     updateDeviceAndGateBadges();
     window.addEventListener('resize', () => {
@@ -7866,6 +7962,7 @@
         const parsed = JSON.parse(json);
         if (!state._savedAt || (parsed._savedAt || 0) > state._savedAt) {
           state = mergeWithDefaults(parsed);
+          try { migrateVariantTexts(); } catch (_) {}
           renderAll();
         }
       }).catch(() => {});
