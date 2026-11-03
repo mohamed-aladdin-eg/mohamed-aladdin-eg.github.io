@@ -1857,9 +1857,9 @@
     
 <div id="lsNudge" class="ls-nudge" role="dialog" aria-label="Contact"></div>
   <!-- Dynamic Mouse Spotlight -->
-  <div id="cursorSpotlight" style="transform: translate3d(1453px, -262px, 0px);"></div>
+  <div id="cursorSpotlight" style="transform: translate3d(1465px, -294px, 0px);"></div>
   <!-- Animated aurora light behind the glass -->
-  <div id="auroraBg" aria-hidden="true"><span class="aur a1"></span><span class="aur a2"></span><span class="aur a3"></span></div>
+  <div id="auroraBg" aria-hidden="true" class="paused"><span class="aur a1"></span><span class="aur a2"></span><span class="aur a3"></span></div>
   <!-- Universal Image Picker for swapping any photo in Owner Mode -->
   
 
@@ -1869,7 +1869,7 @@
   <div id="pageFlipVeil" class="fixed inset-0 z-50 flex items-center justify-center">
     <div class="px-6 py-3 rounded-2xl border acc-border50 bg-black/90 acc-text font-display text-sm sm:text-base font-extrabold tracking-widest uppercase shadow-2xl flex items-center gap-2.5">
       <span class="animate-spin">✦</span>
-      <span id="pageFlipVeilLabel">Opening Studio Page...</span>
+      <span id="pageFlipVeilLabel">03 / Commercial Videography Cinema</span>
     </div>
   </div>
 
@@ -1968,7 +1968,7 @@
 
       <!-- Center / Right Dynamic Folder Navigation + Time-of-Day Mood Pill -->
       <div class="flex items-center gap-1.5 sm:gap-2.5 flex-wrap">
-        <button id="btnBackToGateway" type="button" onclick="showQuestionGateway()" class="hidden items-center gap-2 px-3 py-1.5 rounded-full text-xs font-extrabold border-2 shadow-lg transition hover:scale-105" style="border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--text-primary);">
+        <button id="btnBackToGateway" type="button" onclick="showQuestionGateway()" class="items-center gap-2 px-3 py-1.5 rounded-full text-xs font-extrabold border-2 shadow-lg transition hover:scale-105 hidden" style="border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--text-primary);">
           <img id="headerBackThumbImg" src="" alt="Home" class="w-6 h-6 rounded-full object-cover border acc-border" draggable="false">
           <span>←<span class="hidden sm:inline"> Home</span></span>
         </button>
@@ -2114,9 +2114,9 @@
 
         <!-- Right: Always-playing Showreel (muted loop) -->
         <div class="ls-about-media lg:col-span-5">
-          <div id="showreelCard" class="surface-card tilt-card rounded-2xl p-2.5 max-w-md mx-auto lg:ml-auto" onmousemove="handleCardTilt(event, this)" onmouseleave="resetCardTilt(this)">
-            <div class="card-glare rounded-2xl"></div>
-            <div id="showreelFrame" class="showreel-frame protected-media-wrap rounded-xl bg-black aspect-4-5" oncontextmenu="return blockMediaDownload(event)">
+          <div id="showreelCard" class="surface-card tilt-card rounded-2xl p-2.5 max-w-md mx-auto lg:ml-auto" onmousemove="handleCardTilt(event, this)" onmouseleave="resetCardTilt(this)" style="">
+            <div class="card-glare rounded-2xl" style="--gx: 98.7%; --gy: 1.0%;"></div>
+            <div id="showreelFrame" class="showreel-frame protected-media-wrap rounded-xl bg-black aspect-9-16" oncontextmenu="return blockMediaDownload(event)">
               <div id="showreelStage" class="showreel-stage"></div>
               <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/35 pointer-events-none z-[5]"></div>
               <div class="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 z-20">
@@ -2152,7 +2152,7 @@
     </section>
 
     <!-- 2. OPENED FOLDER VIEW (PROJECTS INSIDE SELECTED FOLDER) -->
-    <section id="portfolioSection" class="hidden py-4 ls-band" data-ls-bg="lsBgWork" data-fx-slot="lsWorkBg_editing">
+    <section id="portfolioSection" class="py-4 ls-band hidden" data-ls-bg="lsBgWork" data-fx-slot="lsWorkBg_videography">
       <div class="surface-card rounded-3xl p-4 sm:p-7 mb-8 border-2" style="border-color: color-mix(in srgb, var(--accent) 28%, transparent);">
         <!-- TOP PROMINENT VISUAL NAVIGATION HUB (LARGE PHOTO RETURN CARD + VISUAL DEPARTMENT PHOTO CARDS) -->
         <div class="flex flex-col xl:flex-row xl:items-stretch justify-between gap-5 pb-6 mb-6 border-b border-sub">
@@ -2192,10 +2192,10 @@
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
             <div class="flex items-center gap-3 flex-wrap">
-              <h2 id="deptActiveTitle" class="font-display text-2xl sm:text-4xl font-extrabold">Video Editing &amp; Color Grading</h2>
+              <h2 id="deptActiveTitle" class="font-display text-2xl sm:text-4xl font-extrabold">Commercial Videography</h2>
               
             </div>
-            <p id="deptActiveDesc" class="text-xs sm:text-sm text-sec mt-1 max-w-2xl">High-retention commercial Reels, frame-accurate match cuts, tactile sound design, and node-based color grading in DaVinci Resolve &amp; Premiere Pro.</p>
+            <p id="deptActiveDesc" class="text-xs sm:text-sm text-sec mt-1 max-w-2xl">Luxury real estate property walkthroughs, automotive showroom films, hospitality commercials, and narrative cinema production.</p>
           </div>
         </div>
 
@@ -2383,8 +2383,8 @@
   "layout": {
     "gatewayOnlyOutside": true,
     "sectionAspects": {
-      "editing": "4:5",
-      "photography": "per-card",
+      "editing": "9:16",
+      "photography": "9:16",
       "videography": "9:16",
       "all": "per-card"
     },
@@ -2401,7 +2401,7 @@
     "navCtaText": "Get in Touch",
     "showreelLink": "https://drive.google.com/file/d/1PUljq0-j8MM_xpppIlJE0rBaItBFcY-4/view?usp=sharing",
     "showreelFullLink": "https://drive.google.com/file/d/1PUljq0-j8MM_xpppIlJE0rBaItBFcY-4/view?usp=sharing",
-    "showreelAspect": "4:5",
+    "showreelAspect": "9:16",
     "showreelBadge": "SHOWREEL 2026",
     "showreelTag": "Commercial Master Cut",
     "showreelCap": "Editing • DaVinci Color • On-Set Production — Cairo",
@@ -2906,7 +2906,7 @@
     {
       "id": "proj_1793546818775",
       "service": "photography",
-      "aspect": "4:5",
+      "aspect": "9:16",
       "title": "WOW Fashion - Women's Apparel & Lookbook Shoot",
       "subtitle": "Fashion & E-Commerce Photography",
       "link": "https://drive.google.com/file/d/1QgbKfAAgQQbTpr0acdgQFEC3L16_8xab/view?usp=sharing",
@@ -3235,7 +3235,7 @@
       "link": "https://drive.google.com/file/d/1k_RX9-iM8egEbV09zZVbDZbgpNZPSWnQ/view?usp=drivesdk"
     }
   ],
-  "_savedAt": 1793608877210
+  "_savedAt": 1793711016083
 }</script>
   <script id="exportModeFlag" type="application/json">{"startInOwnerMode":false,"visitorBuild":true}</script>
 
