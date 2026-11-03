@@ -1857,7 +1857,7 @@
     
 <div id="lsNudge" class="ls-nudge" role="dialog" aria-label="Contact"></div>
   <!-- Dynamic Mouse Spotlight -->
-  <div id="cursorSpotlight" style="transform: translate3d(1411px, -199px, 0px);"></div>
+  <div id="cursorSpotlight" style="transform: translate3d(1453px, -262px, 0px);"></div>
   <!-- Animated aurora light behind the glass -->
   <div id="auroraBg" aria-hidden="true"><span class="aur a1"></span><span class="aur a2"></span><span class="aur a3"></span></div>
   <!-- Universal Image Picker for swapping any photo in Owner Mode -->
@@ -6414,6 +6414,13 @@
       return m ? m[1] : null;
     }
 
+    // Drive's player inside a sandboxed frame can show the phone's own video controls on top of its own
+    // (two play buttons, two timelines). Without the sandbox it draws only its own controls.
+    // Add ?driveSandbox=1 to the page address to compare with the old behaviour.
+    function driveSandboxAttr() {
+      try { if (/[?&]driveSandbox=1\b/.test(location.search)) return 'sandbox="allow-scripts allow-same-origin allow-presentation"'; } catch (_) {}
+      return 'referrerpolicy="strict-origin-when-cross-origin"';
+    }
     // Real shape of a Drive video, read from its preview frame (vertical Reels become tall frames automatically)
     const _videoShape = {};
     function fitViewerFrame(ratio) {
@@ -6485,7 +6492,7 @@
       } else if (dId) {
         stage.innerHTML = `
           <div class="viewer-frame relative bg-black mx-auto" style="${frameStyle}">
-            <iframe src="https://drive.google.com/file/d/${dId}/preview" class="w-full h-full border-0" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+            <iframe src="https://drive.google.com/file/d/${dId}/preview" class="w-full h-full border-0" allow="autoplay; fullscreen" ${driveSandboxAttr()}></iframe>
             <div class="absolute top-0 right-0 w-24 h-16 z-30 bg-transparent" oncontextmenu="return blockMediaDownload(event)" onclick="event.stopPropagation(); showToast('🔒 Protected Stream — Download Disabled');"></div>
           </div>
         `;
@@ -6949,7 +6956,7 @@
       } else if (kind === 'vimeo') {
         stage.innerHTML = '<div class="viewer-frame relative bg-black mx-auto" style="aspect-ratio:16 / 9;width:min(100%, calc(var(--viewer-h) * 1.7778));"><iframe src="https://player.vimeo.com/video/' + extractVimeoId(link) + '?autoplay=1" class="w-full h-full border-0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>';
       } else if (kind === 'drive') {
-        stage.innerHTML = '<div class="viewer-frame relative bg-black mx-auto" style="aspect-ratio:16 / 9;width:min(100%, calc(var(--viewer-h) * 1.7778));"><iframe src="https://drive.google.com/file/d/' + extractDriveId(link) + '/preview" class="w-full h-full border-0" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>' +
+        stage.innerHTML = '<div class="viewer-frame relative bg-black mx-auto" style="aspect-ratio:16 / 9;width:min(100%, calc(var(--viewer-h) * 1.7778));"><iframe src="https://drive.google.com/file/d/' + extractDriveId(link) + '/preview" class="w-full h-full border-0" allow="autoplay; fullscreen" ' + driveSandboxAttr() + '></iframe>' +
           '<div class="absolute top-0 right-0 w-24 h-16 z-30 bg-transparent" oncontextmenu="return blockMediaDownload(event)" onclick="event.stopPropagation(); showToast(\'🔒 Protected Stream — Download Disabled\');"></div></div>';
       } else if (kind === 'file') {
         stage.innerHTML = '<video src="' + escHtml(link) + '" controls autoplay playsinline controlslist="nodownload" disablepictureinpicture class="max-h-[70vh] w-auto max-w-full mx-auto block bg-black" oncontextmenu="return blockMediaDownload(event)"></video>';
