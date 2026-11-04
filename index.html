@@ -1857,7 +1857,7 @@
     
 <div id="lsNudge" class="ls-nudge" role="dialog" aria-label="Contact"></div>
   <!-- Dynamic Mouse Spotlight -->
-  <div id="cursorSpotlight" style="transform: translate3d(1145px, -192px, 0px);"></div>
+  <div id="cursorSpotlight" style="transform: translate3d(1464px, -306px, 0px);"></div>
   <!-- Animated aurora light behind the glass -->
   <div id="auroraBg" aria-hidden="true" class="paused"><span class="aur a1"></span><span class="aur a2"></span><span class="aur a3"></span></div>
   <!-- Universal Image Picker for swapping any photo in Owner Mode -->
@@ -1869,7 +1869,7 @@
   <div id="pageFlipVeil" class="fixed inset-0 z-50 flex items-center justify-center">
     <div class="px-6 py-3 rounded-2xl border acc-border50 bg-black/90 acc-text font-display text-sm sm:text-base font-extrabold tracking-widest uppercase shadow-2xl flex items-center gap-2.5">
       <span class="animate-spin">✦</span>
-      <span id="pageFlipVeilLabel">Home</span>
+      <span id="pageFlipVeilLabel">01 / Video Editing &amp; Color Studio</span>
     </div>
   </div>
 
@@ -2075,7 +2075,7 @@
           </div>
         </div>
         <div id="btsViewport" class="bts-viewport">
-          <div id="btsTrack" class="bts-track is-marquee" data-sig="[true,false,[[&quot;bts_1&quot;,&quot;Canon Cinema EOS rig &amp; studio lighting&quot;,&quot;&quot;,291103],[&quot;bts_2&quot;,&quot;Cinema camera on OConnor fluid head&quot;,&quot;&quot;,156143],[&quot;bts_4&quot;,&quot;Festival screening — 'At This Moment'&quot;,&quot;&quot;,7],[&quot;bts_3&quot;,&quot;Behind the lens — on set&quot;,&quot;&quot;,664247],[&quot;bts_1793455176424&quot;,&quot;&quot;,&quot;https://youtube.com/shorts/rSCjzHKPv4Q&quot;,0],[&quot;bts_1793455254917&quot;,&quot;&quot;,&quot;https://youtube.com/shorts/L50mQ0J4iu8&quot;,0],[&quot;bts_1793455320437&quot;,&quot;&quot;,&quot;https://youtube.com/shorts/z8ML8sjVcPQ&quot;,0]]]" style="--bts-dur: 49s;"></div>
+          <div id="btsTrack" class="bts-track is-marquee" data-sig="[true,false,[[&quot;bts_1&quot;,&quot;Canon Cinema EOS rig &amp; studio lighting&quot;,&quot;&quot;,291103],[&quot;bts_2&quot;,&quot;Cinema camera on OConnor fluid head&quot;,&quot;&quot;,156143],[&quot;bts_4&quot;,&quot;Festival screening — 'At This Moment'&quot;,&quot;&quot;,7],[&quot;bts_3&quot;,&quot;Behind the lens — on set&quot;,&quot;&quot;,664247],[&quot;bts_1793455176424&quot;,&quot;&quot;,&quot;https://drive.google.com/file/d/16PrccZiQ1_Pu4gbo1gxLv-d4W5rnMUZd/view?usp=sharing&quot;,0],[&quot;bts_1793455254917&quot;,&quot;&quot;,&quot;https://drive.google.com/file/d/1IxAxrq4aAE0scktbkdbym6fXn8DVvnXB/view?usp=sharing&quot;,0],[&quot;bts_1793455320437&quot;,&quot;&quot;,&quot;https://drive.google.com/file/d/1wpZoCGHfrJi5VBBSPbBhRNLvcvjS2wCy/view?usp=sharing&quot;,0]]]" style="--bts-dur: 49s;"></div>
         </div>
       </div>
 
@@ -2114,9 +2114,9 @@
 
         <!-- Right: Always-playing Showreel (muted loop) -->
         <div class="ls-about-media lg:col-span-5">
-          <div id="showreelCard" class="surface-card tilt-card rounded-2xl p-2.5 max-w-md mx-auto lg:ml-auto" onmousemove="handleCardTilt(event, this)" onmouseleave="resetCardTilt(this)">
-            <div class="card-glare rounded-2xl"></div>
-            <div id="showreelFrame" class="showreel-frame protected-media-wrap rounded-xl bg-black aspect-9-16" oncontextmenu="return blockMediaDownload(event)">
+          <div id="showreelCard" class="surface-card tilt-card rounded-2xl p-2.5 max-w-md mx-auto lg:ml-auto" onmousemove="handleCardTilt(event, this)" onmouseleave="resetCardTilt(this)" style="">
+            <div class="card-glare rounded-2xl" style="--gx: 36.2%; --gy: 0.1%;"></div>
+            <div id="showreelFrame" class="showreel-frame protected-media-wrap rounded-xl bg-black aspect-4-5" oncontextmenu="return blockMediaDownload(event)">
               <div id="showreelStage" class="showreel-stage"></div>
               <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/35 pointer-events-none z-[5]"></div>
               <div class="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 z-20">
@@ -2152,7 +2152,7 @@
     </section>
 
     <!-- 2. OPENED FOLDER VIEW (PROJECTS INSIDE SELECTED FOLDER) -->
-    <section id="portfolioSection" class="py-4 ls-band hidden" data-ls-bg="lsBgWork" data-fx-slot="lsWorkBg_photography">
+    <section id="portfolioSection" class="py-4 ls-band hidden" data-ls-bg="lsBgWork" data-fx-slot="lsWorkBg_editing">
       <div class="surface-card rounded-3xl p-4 sm:p-7 mb-8 border-2" style="border-color: color-mix(in srgb, var(--accent) 28%, transparent);">
         <!-- TOP PROMINENT VISUAL NAVIGATION HUB (LARGE PHOTO RETURN CARD + VISUAL DEPARTMENT PHOTO CARDS) -->
         <div class="flex flex-col xl:flex-row xl:items-stretch justify-between gap-5 pb-6 mb-6 border-b border-sub">
@@ -2192,10 +2192,10 @@
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
             <div class="flex items-center gap-3 flex-wrap">
-              <h2 id="deptActiveTitle" class="font-display text-2xl sm:text-4xl font-extrabold">Commercial Photography</h2>
+              <h2 id="deptActiveTitle" class="font-display text-2xl sm:text-4xl font-extrabold">Video Editing &amp; Color Grading</h2>
               
             </div>
-            <p id="deptActiveDesc" class="text-xs sm:text-sm text-sec mt-1 max-w-2xl">Beverage &amp; product advertising campaigns (TWIST, Schweppes, FOGG), e-commerce hero stills, fashion editorials, and architectural interiors.</p>
+            <p id="deptActiveDesc" class="text-xs sm:text-sm text-sec mt-1 max-w-2xl">High-retention commercial Reels, frame-accurate match cuts, tactile sound design, and node-based color grading in DaVinci Resolve &amp; Premiere Pro.</p>
           </div>
         </div>
 
@@ -2263,8 +2263,8 @@
     <div class="surface-card rounded-2xl max-w-4xl w-full overflow-hidden border border-white/15 shadow-2xl" onclick="event.stopPropagation()">
       <div class="flex items-center justify-between px-5 py-3.5 border-b border-sub">
         <div>
-          <span id="viewerCategory" class="text-[10px] font-bold uppercase tracking-widest accent-text block">Luxury Hospitality Editing &amp; Color GradingHospitality &amp; Culinary Videography / Editing</span>
-          <h3 id="viewerTitle" class="font-display text-base sm:text-lg font-bold">Four Seasons Cairo at Nile Plaza - Luxury Culinary &amp; Pastry Reel</h3>
+          <span id="viewerCategory" class="text-[10px] font-bold uppercase tracking-widest accent-text block">Narrative &amp; Documentary Directing</span>
+          <h3 id="viewerTitle" class="font-display text-base sm:text-lg font-bold">At This Moment &amp; Gates of Cairo</h3>
         </div>
         <div class="flex items-center gap-2">
           <span class="hidden sm:inline-block px-2.5 py-1 rounded-full bg-black/60 text-[10px] text-sec border border-white/10">🔒 Protected Preview</span>
@@ -2277,10 +2277,10 @@
 
       <div class="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4" style="background-color: var(--bg-secondary);">
         <div class="space-y-1 max-w-2xl">
-          <p id="viewerDesc" class="text-xs sm:text-sm text-sec leading-relaxed">Elegant commercial editing and warm, cinematic color grading for Four Seasons Hotel Cairo at Nile Plaza, showcasing fine pastry craftsmanship and luxury hospitality aesthetics.</p>
+          <p id="viewerDesc" class="text-xs sm:text-sm text-sec leading-relaxed">Directed and shot narrative drama and documentary films featuring controlled dramatic lighting and camera movement.</p>
         </div>
         <div class="flex items-center gap-2 shrink-0">
-          <a id="viewerExternalLink" href="https://youtube.com/shorts/ZFjnXgoTbcY" target="_blank" rel="noopener noreferrer" class="outline-pill px-4 py-2.5 rounded-full text-xs font-bold hidden">
+          <a id="viewerExternalLink" href="https://youtu.be/LkiL5xBvozs?si=wCLX1jPTT6XZMfuj" target="_blank" rel="noopener noreferrer" class="outline-pill px-4 py-2.5 rounded-full text-xs font-bold hidden">
             Open External Link ↗
           </a>
           <button type="button" onclick="closeMediaViewer(); document.getElementById('contactSection').scrollIntoView({behavior:'smooth'});" class="accent-pill px-5 py-2.5 rounded-full text-xs font-extrabold">
@@ -2383,8 +2383,8 @@
   "layout": {
     "gatewayOnlyOutside": true,
     "sectionAspects": {
-      "editing": "9:16",
-      "photography": "9:16",
+      "editing": "4:5",
+      "photography": "per-card",
       "videography": "9:16",
       "all": "per-card"
     },
@@ -2399,9 +2399,9 @@
   "profile": {
     "name": "MOHAMED ALADDIN",
     "navCtaText": "Get in Touch",
-    "showreelLink": "https://drive.google.com/file/d/1PUljq0-j8MM_xpppIlJE0rBaItBFcY-4/view?usp=sharing",
-    "showreelFullLink": "https://drive.google.com/file/d/1PUljq0-j8MM_xpppIlJE0rBaItBFcY-4/view?usp=sharing",
-    "showreelAspect": "9:16",
+    "showreelLink": "https://youtube.com/shorts/p_Ji0uDvUsM",
+    "showreelFullLink": "https://youtube.com/shorts/p_Ji0uDvUsM",
+    "showreelAspect": "4:5",
     "showreelBadge": "SHOWREEL 2026",
     "showreelTag": "Commercial Master Cut",
     "showreelCap": "Editing • DaVinci Color • On-Set Production — Cairo",
@@ -2766,19 +2766,19 @@
     {
       "id": "bts_1793455176424",
       "image": "",
-      "link": "https://youtube.com/shorts/rSCjzHKPv4Q",
+      "link": "https://drive.google.com/file/d/16PrccZiQ1_Pu4gbo1gxLv-d4W5rnMUZd/view?usp=sharing",
       "caption": ""
     },
     {
       "id": "bts_1793455254917",
       "image": "",
-      "link": "https://youtube.com/shorts/L50mQ0J4iu8",
+      "link": "https://drive.google.com/file/d/1IxAxrq4aAE0scktbkdbym6fXn8DVvnXB/view?usp=sharing",
       "caption": ""
     },
     {
       "id": "bts_1793455320437",
       "image": "",
-      "link": "https://youtube.com/shorts/z8ML8sjVcPQ",
+      "link": "https://drive.google.com/file/d/1wpZoCGHfrJi5VBBSPbBhRNLvcvjS2wCy/view?usp=sharing",
       "caption": ""
     }
   ],
@@ -2844,8 +2844,8 @@
       "aspect": "16:9",
       "title": "Four Seasons Cairo at Nile Plaza - Luxury Culinary & Pastry Reel",
       "subtitle": "Luxury Hospitality Editing & Color GradingHospitality & Culinary Videography / Editing",
-      "link": "https://drive.google.com/file/d/1ZR0X0C9acLlqg2O-Ug73w5TZ03fyy5St/view?usp=sharing",
-      "driveId": "1ZR0X0C9acLlqg2O-Ug73w5TZ03fyy5St",
+      "link": "https://youtube.com/shorts/WRLNG_GDsWk",
+      "driveId": "",
       "desc": "Elegant commercial editing and warm, cinematic color grading for Four Seasons Hotel Cairo at Nile Plaza, showcasing fine pastry craftsmanship and luxury hospitality aesthetics.",
       "imageKey": "ASSET_7",
       "customImage": "images/img-70f76a7c-36o.webp",
@@ -2857,7 +2857,7 @@
       "aspect": "16:9",
       "title": "Namaste Indian Restaurant - Official Commercial Ad",
       "subtitle": "Commercial Ad Production & Cinematography",
-      "link": "https://youtube.com/shorts/AsUs-m_CNno?feature=share",
+      "link": "https://youtube.com/shorts/AsUs-m_CNno",
       "driveId": "",
       "desc": "High-end commercial ad filmed for Namaste Indian Restaurant, blending cinematic lighting, shallow depth of field, and expressive talent direction to deliver a compelling brand story.",
       "imageKey": "ASSET_7",
@@ -2872,8 +2872,8 @@
       "desc": "High-energy commercial editing crafted for F1 broadcast in Saudi Arabia, featuring dynamic pacing, aggressive speed ramps, and immersive layered sound design that captures pure adrenaline on the track.",
       "aspect": "16:9",
       "imageKey": "ASSET_9",
-      "driveId": "1paqBQtobU3vWkU5iejLh91kZPuoxE353",
-      "link": "https://drive.google.com/file/d/1paqBQtobU3vWkU5iejLh91kZPuoxE353/view?usp=sharing",
+      "driveId": "",
+      "link": "https://youtu.be/nq8J3rlasOI?si=POAXCWcIzuBy4-LF",
       "gallery": [],
       "customImage": "images/img-f3a7666f-1uz.webp"
     },
@@ -2885,8 +2885,8 @@
       "desc": "High-retention real estate reel blending advanced video editing with AI-driven image animation and camera projection, transforming still architectural visuals into immersive cinematic motion.",
       "aspect": "16:9",
       "imageKey": "ASSET_13",
-      "driveId": "1LaaXIIrJMTR2m6yeHOOago7fZ85-opxf",
-      "link": "https://drive.google.com/file/d/1LaaXIIrJMTR2m6yeHOOago7fZ85-opxf/view?usp=sharing",
+      "driveId": "",
+      "link": "https://youtu.be/2qYGZ56WEnk?si=Y3T4cO_dDkJv5-9e",
       "gallery": [],
       "customImage": "images/img-7d2dfadd-qn.webp"
     },
@@ -2899,14 +2899,14 @@
       "aspect": "16:9",
       "imageKey": "ASSET_7",
       "driveId": "",
-      "link": "https://youtu.be/rcNyERa6KDE",
+      "link": "https://youtu.be/rcNyERa6KDE?si=wxeTYVHZ3Gh8Lsap",
       "customImage": "https://drive.google.com/file/d/1gPTRqWl7EIZYOyt0cxKDzUSU_06Hnzmj/view?usp=sharing",
       "gallery": []
     },
     {
       "id": "proj_1793546818775",
       "service": "photography",
-      "aspect": "9:16",
+      "aspect": "4:5",
       "title": "WOW Fashion - Women's Apparel & Lookbook Shoot",
       "subtitle": "Fashion & E-Commerce Photography",
       "link": "https://drive.google.com/file/d/1QgbKfAAgQQbTpr0acdgQFEC3L16_8xab/view?usp=sharing",
@@ -2927,8 +2927,8 @@
       "aspect": "16:9",
       "title": "Gourmet Burger Commercial - Dynamic Editing & Color Grading",
       "subtitle": "F&B Post-Production & Reels Editing",
-      "link": "https://drive.google.com/file/d/1G7jlqTHh-Ymq66fn9watoPYdoEL-kHBB/view?usp=sharing",
-      "driveId": "1G7jlqTHh-Ymq66fn9watoPYdoEL-kHBB",
+      "link": "https://youtu.be/LkiL5xBvozs?si=wCLX1jPTT6XZMfuj",
+      "driveId": "",
       "desc": "Fast-paced commercial editing, appetizing warm color grading, and immersive sound design (SFX) crafted to highlight the rich textures and mouth-watering layers of a gourmet smash burger.",
       "imageKey": "ASSET_7",
       "customImage": "images/img-43610978-35c.webp",
@@ -2940,7 +2940,7 @@
       "aspect": "16:9",
       "title": "Namaste Restaurant - Commercial Food Videography & Styling",
       "subtitle": "Food & Beverage (F&B) Videography / Photography",
-      "link": "https://youtube.com/shorts/0-UKUbXy230",
+      "link": "https://youtu.be/0-UKUbXy230?si=A5UBEW1hamQBxCHC",
       "driveId": "",
       "desc": "Appetizing top-down culinary showcase for Namaste Indian Restaurant, utilizing warm lighting and vibrant color grading to highlight authentic textures, rich spices, and tabletop styling.",
       "imageKey": "ASSET_7",
@@ -3019,8 +3019,8 @@
       "desc": "This project was a real challenge for us from the very start. When the idea of these videos first came up, we began by focusing on the concept itself. After that, we figured out what equipment we’d need and how to fine-tune the lighting as much as possible. We used artificial lights to get the best look, and we chose a really good camera to capture everything in top quality. In the end, it all came together into something we’re really proud of.",
       "aspect": "16:9",
       "imageKey": "ASSET_16",
-      "driveId": "1pxcCrD0IDPRAV4TjxvN6Vt6NAT3oW_ic",
-      "link": "https://drive.google.com/file/d/1pxcCrD0IDPRAV4TjxvN6Vt6NAT3oW_ic/view?usp=sharing",
+      "driveId": "",
+      "link": "https://youtube.com/shorts/bkmvwnvqwQI",
       "gallery": [],
       "customImage": "images/img-56b57e6b-6om.webp"
     },
@@ -3032,9 +3032,10 @@
       "desc": "Flagship post-production timeline showcasing node-based DaVinci Resolve color grading, match cuts, and commercial storytelling.",
       "aspect": "16:9",
       "imageKey": "ASSET_15",
-      "driveId": "1SRtALSxyCQYjBd48-b0pwDzYluS4qInv",
-      "link": "https://drive.google.com/file/d/1SRtALSxyCQYjBd48-b0pwDzYluS4qInv/view?usp=drivesdk",
-      "customImage": "images/img-d600e0d1-5xs.webp"
+      "driveId": "",
+      "link": "https://youtube.com/shorts/cCI3b6B3SRA",
+      "customImage": "images/img-d600e0d1-5xs.webp",
+      "gallery": []
     },
     {
       "id": "proj_1793607234652",
@@ -3042,8 +3043,8 @@
       "aspect": "16:9",
       "title": "Smash Burger Commercial - Videography & Dynamic Edit",
       "subtitle": "Commercial F&B Production (Shoot & Edit)",
-      "link": "https://drive.google.com/file/d/1HZO52dOWcjudzjec3vwiSANdF1vtRAoY/view?usp=sharing",
-      "driveId": "1HZO52dOWcjudzjec3vwiSANdF1vtRAoY",
+      "link": "https://youtube.com/shorts/W574Tgu_2lY",
+      "driveId": "",
       "desc": "End-to-end commercial food production combining macro tabletop cinematography, high-frame-rate action shots, fast-paced editing, and appetizing color grading to capture the ultimate smash burger experience.",
       "imageKey": "ASSET_7",
       "customImage": "images/img-468b93c6-4ce.webp",
@@ -3058,7 +3059,7 @@
       "aspect": "16:9",
       "imageKey": "ASSET_10",
       "driveId": "",
-      "link": "https://youtu.be/Vc002fbX8Vs?si=bSRcO6N3PJafIjyZ",
+      "link": "https://youtube.com/shorts/Vc002fbX8Vs",
       "customImage": "images/img-a152143d-6f7.webp",
       "gallery": []
     },
@@ -3221,8 +3222,8 @@
       "desc": "Studio video podcast production and vertical reel editing for Doc's Dog, featuring balanced key lighting, colored ambient background accents, clear audio capture, and engaging Arabic captions.",
       "aspect": "16:9",
       "imageKey": "ASSET_12",
-      "driveId": "1QVDC70_o62QX2IpKAwt2gEkY9JBgyhES",
-      "link": "https://drive.google.com/file/d/1QVDC70_o62QX2IpKAwt2gEkY9JBgyhES/view?usp=drivesdk",
+      "driveId": "",
+      "link": "https://youtube.com/shorts/ORvgEWmH4xI",
       "customImage": "images/img-2ae358c8-78m.webp",
       "gallery": []
     },
@@ -3238,7 +3239,7 @@
       "link": "https://drive.google.com/file/d/1k_RX9-iM8egEbV09zZVbDZbgpNZPSWnQ/view?usp=drivesdk"
     }
   ],
-  "_savedAt": 1793716997529
+  "_savedAt": 1793806622373
 }</script>
   <script id="exportModeFlag" type="application/json">{"startInOwnerMode":false,"visitorBuild":true}</script>
 
