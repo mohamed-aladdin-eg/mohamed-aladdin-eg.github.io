@@ -2516,8 +2516,8 @@ body.style-landscape #portfolioSection { isolation: isolate; }
   "profile": {
     "name": "MOHAMED ALADDIN",
     "navCtaText": "Get in Touch",
-    "showreelLink": "https://drive.google.com/file/d/145hc_jWK7ZwLKTKD-kyFSwYd3LwmGybx/view?usp=sharing",
-    "showreelFullLink": "https://drive.google.com/file/d/145hc_jWK7ZwLKTKD-kyFSwYd3LwmGybx/view?usp=sharing",
+    "showreelLink": "videos/showreel.txt",
+    "showreelFullLink": "",
     "showreelAspect": "4:5",
     "showreelBadge": "SHOWREEL 2026",
     "showreelTag": "Commercial Master Cut",
@@ -5225,7 +5225,7 @@ body.style-landscape #portfolioSection { isolation: isolate; }
       // Showreel: the YouTube copy is blocked (music claim) and the old Drive cut is retired; use the new cut
       ['showreelLink', 'showreelFullLink'].forEach(k => {
         // The showreel now lives on GitHub next to the site (videos/showreel.mp4) so it plays in the site's own player
-        if (/lDuZ8c7pmxo|1PUljq0-j8MM_xpppIlJE0rBaItBFcY-4|1SRtALSxyCQYjBd48-b0pwDzYluS4qInv|1pQe4rlIY3Ix7eqJt-A5e6F8PcqpxKB-m|^videos\/showreel\.(mp4|dat)$/.test(p[k] || '')) p[k] = k === 'showreelLink' ? 'videos/showreel.txt' : '';
+        if (/lDuZ8c7pmxo|^videos\/showreel\.(mp4|dat)$/.test(p[k] || '') || extractDriveId(p[k] || '')) p[k] = k === 'showreelLink' ? 'videos/showreel.txt' : '';
       });
       if (p.backHubBadge === 'RETURN TO MAIN GATEWAY') p.backHubBadge = 'BACK TO HOME';
       if (p.backHubTitle === 'Back to Interactive 3D Folders') p.backHubTitle = siteVariant() === 'portfolio' ? 'Back to All Work' : 'Back to All Services';
@@ -7716,6 +7716,10 @@ body.style-landscape #portfolioSection { isolation: isolate; }
       const p = state.profile;
       const loop = prompt('لينك الفيديو اللي هيشتغل لوحده (MP4 على GitHub مثل showreel.mp4، أو YouTube، أو Vimeo، أو Google Drive):', p.showreelLink || '');
       if (loop === null) return;
+      if (extractDriveId(loop.trim())) {
+        alert('لينكات جوجل درايف مش بتشتغل كويس في الشوريل (بتعلّق وبيظهر شريطين تشغيل).\n\nلو عندك شوريل جديد، ابعت ملف الـ MP4 لـ Claude يجهزهولك كملف محمي على GitHub.\nالشوريل الحالي هيفضل: videos/showreel.txt');
+        return;
+      }
       p.showreelLink = loop.trim();
       const full = prompt('لينك النسخة الكاملة اللي تفتح بزرار Full Showreel (سيبه فاضي لو هو نفس اللينك):', p.showreelFullLink || '');
       if (full !== null) p.showreelFullLink = full.trim();
@@ -8951,6 +8955,7 @@ body.style-landscape #portfolioSection { isolation: isolate; }
         if (!state._savedAt || (parsed._savedAt || 0) > state._savedAt) {
           state = mergeWithDefaults(parsed);
           try { migrateVariantTexts(); } catch (_) {}
+          try { tidyLegacyTexts(); } catch (_) {}
           renderAll();
         }
       }).catch(() => {});
