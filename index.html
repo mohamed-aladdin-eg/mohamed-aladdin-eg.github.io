@@ -1872,6 +1872,15 @@
 .yt-shell:-webkit-full-screen{width:100%!important;height:100%!important;aspect-ratio:auto!important;max-width:none!important}
 @media (max-width:420px){.yt-bar{gap:6px;padding-left:8px;padding-right:8px}.yt-btn{width:34px;height:34px}}
 </style>
+<style id="viewerCleanV40">
+/* Phones: the title and Close stay over the top of the video, but with no dark band behind them */
+@media (max-width: 640px) {
+  #mediaViewerModal > div > div:first-child { background: none !important; pointer-events: none; }
+  #mediaViewerModal > div > div:first-child button { pointer-events: auto; background: rgba(0,0,0,.18) !important; border-color: rgba(255,255,255,.35) !important; color: #fff !important; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+  #viewerCategory, #viewerTitle { text-shadow: 0 1px 3px rgba(0,0,0,.85), 0 0 12px rgba(0,0,0,.55); }
+  #viewerTitle { color: #fff !important; }
+}
+</style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased style-landscape glass-on aurora-on">
 
@@ -4133,7 +4142,6 @@
     // =====================================================================
     function blockMediaDownload(e) {
       if (e) e.preventDefault();
-      showToast('🔒 Content is protected — © Mohamed Aladdin');
       return false;
     }
 
@@ -4141,7 +4149,6 @@
       if (ownerMode) return;
       if (e.target.closest('img, video, iframe, .protected-media-wrap, .surface-card')) {
         e.preventDefault();
-        showToast('🔒 Media download is disabled — © Mohamed Aladdin');
       }
     });
 
@@ -6551,7 +6558,7 @@
         stage.innerHTML = `
           <div class="viewer-frame relative bg-black mx-auto" style="${frameStyle}">
             <iframe src="https://drive.google.com/file/d/${dId}/preview" class="w-full h-full border-0" allow="fullscreen" ${driveSandboxAttr()}></iframe>
-            <div class="absolute top-0 right-0 w-24 h-16 z-30 bg-transparent" oncontextmenu="return blockMediaDownload(event)" onclick="event.stopPropagation(); showToast('🔒 Protected Stream — Download Disabled');"></div>
+            <div class="absolute top-0 right-0 w-24 h-16 z-30 bg-transparent" oncontextmenu="return blockMediaDownload(event)" onclick="event.stopPropagation();"></div>
           </div>
         `;
         extBtn.classList.add('hidden');
@@ -7011,6 +7018,20 @@
       }
     }
 
+    // Leaving the tab (or switching apps on the phone) silences everything; the showreel card comes back muted
+    function silenceAllMedia() {
+      const cardV = document.querySelector('#showreelStage video');
+      if (cardV && !cardV.muted) {
+        cardV.muted = true;
+        const btn = document.getElementById('showreelSoundBtn');
+        if (btn) { btn.classList.remove('is-on'); btn.querySelector('.sr-sound-ic').textContent = '🔇'; btn.querySelector('.sr-sound-tx').textContent = 'Tap for sound'; }
+      }
+      document.querySelectorAll('#viewerStage video, #gradeStage video').forEach(v => { if (!v.paused) v.pause(); });
+      try { if (typeof _ytP !== 'undefined' && _ytP && _ytP.pauseVideo) _ytP.pauseVideo(); } catch (_) {}
+    }
+    document.addEventListener('visibilitychange', () => { if (document.hidden) silenceAllMedia(); });
+    window.addEventListener('pagehide', silenceAllMedia);
+
     function openShowreelFull() {
       const p = state.profile;
       const cardV = document.querySelector('#showreelStage video');
@@ -7207,7 +7228,7 @@
         return;
       } else if (kind === 'drive') {
         stage.innerHTML = '<div class="viewer-frame relative bg-black mx-auto" style="aspect-ratio:16 / 9;width:min(100%, calc(var(--viewer-h) * 1.7778));"><iframe src="https://drive.google.com/file/d/' + extractDriveId(link) + '/preview" class="w-full h-full border-0" allow="fullscreen" ' + driveSandboxAttr() + '></iframe>' +
-          '<div class="absolute top-0 right-0 w-24 h-16 z-30 bg-transparent" oncontextmenu="return blockMediaDownload(event)" onclick="event.stopPropagation(); showToast(\'🔒 Protected Stream — Download Disabled\');"></div></div>';
+          '<div class="absolute top-0 right-0 w-24 h-16 z-30 bg-transparent" oncontextmenu="return blockMediaDownload(event)" onclick="event.stopPropagation();"></div></div>';
       } else if (kind === 'file') {
         stage.innerHTML = '<video ' + (isSealedVideo(link) ? '' : 'src="' + escHtml(link) + '" ') + 'controls autoplay playsinline controlslist="nodownload" disablepictureinpicture class="max-h-[70vh] w-auto max-w-full mx-auto block bg-black" oncontextmenu="return blockMediaDownload(event)"></video>';
         const vEl = stage.querySelector('video');
