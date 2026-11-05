@@ -5693,6 +5693,7 @@
     }
 
     function openDepartment(deptId) {
+      silenceAllMedia();
       const deptNames = {
         editing: '01 / Video Editing & Color Studio',
         photography: '02 / Commercial Photography Studio',
@@ -5707,6 +5708,7 @@
     }
 
     function showQuestionGateway() {
+      silenceAllMedia();
       trigger3DPageFlip('Home', () => {
         isPortfolioViewOpen = false;
         renderAll();
@@ -6522,6 +6524,7 @@
     function openMediaViewer(projId) {
       const proj = (state.projects || []).find(p => p.id === projId);
       if (!proj) return;
+      muteShowreelCard(true);
 
       document.getElementById('viewerCategory').textContent = proj.subtitle || proj.service.toUpperCase();
       document.getElementById('viewerTitle').textContent = proj.title;
@@ -7019,13 +7022,24 @@
     }
 
     // Leaving the tab (or switching apps on the phone) silences everything; the showreel card comes back muted
-    function silenceAllMedia() {
+    function muteShowreelCard(alsoPause) {
       const cardV = document.querySelector('#showreelStage video');
-      if (cardV && !cardV.muted) {
+      if (!cardV) return;
+      if (!cardV.muted) {
         cardV.muted = true;
         const btn = document.getElementById('showreelSoundBtn');
         if (btn) { btn.classList.remove('is-on'); btn.querySelector('.sr-sound-ic').textContent = '🔇'; btn.querySelector('.sr-sound-tx').textContent = 'Tap for sound'; }
       }
+      if (alsoPause && !cardV.paused) cardV.pause();
+    }
+    // The showreel's sound only plays while the card is really on screen: scroll on, open a folder or another page, and it goes quiet
+    if ('IntersectionObserver' in window) {
+      const _srSoundIO = new IntersectionObserver(es => es.forEach(en => { if (en.intersectionRatio < 0.4) muteShowreelCard(false); }), { threshold: [0, 0.4] });
+      const hookSr = () => { const f = document.getElementById('showreelFrame'); if (f) _srSoundIO.observe(f); };
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', hookSr); else hookSr();
+    }
+    function silenceAllMedia() {
+      muteShowreelCard(false);
       document.querySelectorAll('#viewerStage video, #gradeStage video').forEach(v => { if (!v.paused) v.pause(); });
       try { if (typeof _ytP !== 'undefined' && _ytP && _ytP.pauseVideo) _ytP.pauseVideo(); } catch (_) {}
     }
@@ -7210,6 +7224,7 @@
 
     // Generic viewer for showreel / behind-the-scenes items
     function openMediaItem(item) {
+      muteShowreelCard(true);
       document.getElementById('viewerCategory').textContent = item.category || '';
       document.getElementById('viewerTitle').textContent = item.title || '';
       document.getElementById('viewerDesc').textContent = item.desc || '';
