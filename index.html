@@ -2399,7 +2399,7 @@
   "profile": {
     "name": "MOHAMED ALADDIN",
     "navCtaText": "Get in Touch",
-    "showreelLink": "https://drive.google.com/file/d/1pQe4rlIY3Ix7eqJt-A5e6F8PcqpxKB-m/view",
+    "showreelLink": "videos/showreel.mp4",
     "showreelFullLink": "",
     "showreelAspect": "4:5",
     "showreelBadge": "SHOWREEL 2026",
@@ -3284,7 +3284,7 @@
       profile: {
         name: 'MOHAMED ALADDIN',
         navCtaText: 'Start a Project',
-        showreelLink: 'https://drive.google.com/file/d/1pQe4rlIY3Ix7eqJt-A5e6F8PcqpxKB-m/view',
+        showreelLink: 'videos/showreel.mp4',
         showreelFullLink: '',
         showreelAspect: '4:5',
         showreelBadge: 'SHOWREEL 2026',
@@ -4549,7 +4549,8 @@
       const p = state.profile || {};
       // Showreel: the YouTube copy is blocked (music claim) and the old Drive cut is retired; use the new cut
       ['showreelLink', 'showreelFullLink'].forEach(k => {
-        if (/lDuZ8c7pmxo|1PUljq0-j8MM_xpppIlJE0rBaItBFcY-4|1SRtALSxyCQYjBd48-b0pwDzYluS4qInv/.test(p[k] || '')) p[k] = k === 'showreelLink' ? 'https://drive.google.com/file/d/1pQe4rlIY3Ix7eqJt-A5e6F8PcqpxKB-m/view' : '';
+        // The showreel now lives on GitHub next to the site (videos/showreel.mp4) so it plays in the site's own player
+        if (/lDuZ8c7pmxo|1PUljq0-j8MM_xpppIlJE0rBaItBFcY-4|1SRtALSxyCQYjBd48-b0pwDzYluS4qInv|1pQe4rlIY3Ix7eqJt-A5e6F8PcqpxKB-m/.test(p[k] || '')) p[k] = k === 'showreelLink' ? 'videos/showreel.mp4' : '';
       });
       if (p.backHubBadge === 'RETURN TO MAIN GATEWAY') p.backHubBadge = 'BACK TO HOME';
       if (p.backHubTitle === 'Back to Interactive 3D Folders') p.backHubTitle = siteVariant() === 'portfolio' ? 'Back to All Work' : 'Back to All Services';
@@ -6859,7 +6860,13 @@
       const kind = mediaKind(link);
 
       // The card is a clean cover with a play button; the showreel itself opens in the player when tapped.
-      if (kind !== 'none') {
+      // A video file next to the site (videos/showreel.mp4 on GitHub) plays silently on the card and opens in the site's own player when tapped
+      stage.onclick = null; stage.style.cursor = '';
+      if (kind === 'file') {
+        stage.style.cursor = 'pointer';
+        stage.onclick = ev => { if (ownerMode || ev.target.closest('button, a')) return; openShowreelFull(); };
+      }
+      if (kind !== 'none' && kind !== 'file') {
         stage.innerHTML = posterHtml;
         showreelFallback(stage);
         stage.style.cursor = 'pointer';
@@ -6956,6 +6963,12 @@
 
     function openShowreelFull() {
       const p = state.profile;
+      const cardV = document.querySelector('#showreelStage video');
+      if (cardV) {
+        cardV.muted = true; cardV.pause();
+        const btn = document.getElementById('showreelSoundBtn');
+        if (btn) { btn.classList.remove('is-on'); btn.querySelector('.sr-sound-ic').textContent = '🔇'; btn.querySelector('.sr-sound-tx').textContent = 'Tap for sound'; }
+      }
       openMediaItem({
         category: p.showreelBadge || 'SHOWREEL',
         title: p.showreelTag || 'Showreel',
@@ -7008,6 +7021,11 @@
           '<div class="absolute top-0 right-0 w-24 h-16 z-30 bg-transparent" oncontextmenu="return blockMediaDownload(event)" onclick="event.stopPropagation(); showToast(\'🔒 Protected Stream — Download Disabled\');"></div></div>';
       } else if (kind === 'file') {
         stage.innerHTML = '<video src="' + escHtml(link) + '" controls autoplay playsinline controlslist="nodownload" disablepictureinpicture class="max-h-[70vh] w-auto max-w-full mx-auto block bg-black" oncontextmenu="return blockMediaDownload(event)"></video>';
+        const vEl = stage.querySelector('video');
+        if (vEl) vEl.addEventListener('error', () => {
+          // A video kept next to the site (e.g. videos/showreel.mp4) isn't there when the editor is opened on its own
+          if (!/^https?:/i.test(link)) stage.innerHTML = '<div class="p-8 text-center text-white/80 text-sm leading-7" dir="rtl">🎬 الفيديو ده هيشتغل على الموقع بعد الرفع<br><span class="text-white/50 text-xs">(لازم فولدر <b dir="ltr">videos</b> يبقى جنب الملف)</span></div>';
+        });
       } else {
         stage.innerHTML = '<div class="protected-media-wrap flex items-center justify-center p-3 max-h-[68vh]"><img src="' + (item.image || '') + '" alt="" class="max-h-[65vh] w-auto object-contain rounded-lg" draggable="false" /><div class="media-shield" oncontextmenu="return blockMediaDownload(event)"></div></div>';
         if (kind === 'link') { extBtn.href = link; extBtn.classList.remove('hidden'); }
@@ -7138,6 +7156,8 @@
       document.getElementById('viewerStage').innerHTML = '';
       modal.classList.add('hidden');
       modal.classList.remove('flex');
+      const cardV = document.querySelector('#showreelStage video');
+      if (cardV && cardV.paused) { const pr = cardV.play(); if (pr && pr.catch) pr.catch(() => {}); }
     }
 
     // =====================================================================
