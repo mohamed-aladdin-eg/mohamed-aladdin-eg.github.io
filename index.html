@@ -2421,7 +2421,7 @@
   "profile": {
     "name": "MOHAMED ALADDIN",
     "navCtaText": "Get in Touch",
-    "showreelLink": "videos/showreel.dat",
+    "showreelLink": "videos/showreel.txt",
     "showreelFullLink": "",
     "showreelAspect": "4:5",
     "showreelBadge": "SHOWREEL 2026",
@@ -3306,7 +3306,7 @@
       profile: {
         name: 'MOHAMED ALADDIN',
         navCtaText: 'Start a Project',
-        showreelLink: 'videos/showreel.dat',
+        showreelLink: 'videos/showreel.txt',
         showreelFullLink: '',
         showreelAspect: '4:5',
         showreelBadge: 'SHOWREEL 2026',
@@ -4572,7 +4572,7 @@
       // Showreel: the YouTube copy is blocked (music claim) and the old Drive cut is retired; use the new cut
       ['showreelLink', 'showreelFullLink'].forEach(k => {
         // The showreel now lives on GitHub next to the site (videos/showreel.mp4) so it plays in the site's own player
-        if (/lDuZ8c7pmxo|1PUljq0-j8MM_xpppIlJE0rBaItBFcY-4|1SRtALSxyCQYjBd48-b0pwDzYluS4qInv|1pQe4rlIY3Ix7eqJt-A5e6F8PcqpxKB-m|^videos\/showreel\.mp4$/.test(p[k] || '')) p[k] = k === 'showreelLink' ? 'videos/showreel.dat' : '';
+        if (/lDuZ8c7pmxo|1PUljq0-j8MM_xpppIlJE0rBaItBFcY-4|1SRtALSxyCQYjBd48-b0pwDzYluS4qInv|1pQe4rlIY3Ix7eqJt-A5e6F8PcqpxKB-m|^videos\/showreel\.(mp4|dat)$/.test(p[k] || '')) p[k] = k === 'showreelLink' ? 'videos/showreel.txt' : '';
       });
       if (p.backHubBadge === 'RETURN TO MAIN GATEWAY') p.backHubBadge = 'BACK TO HOME';
       if (p.backHubTitle === 'Back to Interactive 3D Folders') p.backHubTitle = siteVariant() === 'portfolio' ? 'Back to All Work' : 'Back to All Services';
@@ -6841,12 +6841,12 @@
     // ===================== SHOWREEL & BEHIND THE SCENES =====================
     function escHtml(t) { return String(t == null ? '' : t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
     function extractVimeoId(url) { const m = (url || '').match(/vimeo\.com\/(?:video\/)?(\d+)/); return m ? m[1] : null; }
-    function isDirectVideo(url) { return /\.(mp4|webm|mov|m4v|dat)(\?|#|$)/i.test(url || ''); }
+    function isDirectVideo(url) { return /\.(mp4|webm|mov|m4v|dat)(\?|#|$)/i.test(url || '') || isSealedVideo(url); }
     // A ".dat" video is the MP4 stored scrambled on GitHub: the raw file won't play if someone grabs it,
     // and the page plays it from a private blob: address that download managers can't pick up.
     const SEAL_KEY = new TextEncoder().encode('Mo-Aladdin/Showreel/2026/sealed!');
     const _sealed = {};
-    function isSealedVideo(url) { return /\.dat(\?|#|$)/i.test(url || ''); }
+    function isSealedVideo(url) { return /\.dat(\?|#|$)/i.test(url || '') || /^videos\/[^?#]+\.txt(\?|#|$)/i.test(url || ''); }
     function unsealVideo(url) {
       if (!isSealedVideo(url)) return Promise.resolve(url);
       if (!_sealed[url]) {
@@ -7213,7 +7213,7 @@
         const vEl = stage.querySelector('video');
         if (vEl) vEl.addEventListener('error', () => {
           // A video kept next to the site (e.g. videos/showreel.mp4) isn't there when the editor is opened on its own
-          if (!/^https?:/i.test(link) && stage.contains(vEl)) stage.innerHTML = '<div class="p-8 text-center text-white/80 text-sm leading-7" dir="rtl">🎬 الفيديو ده هيشتغل على الموقع بعد الرفع<br><span class="text-white/50 text-xs">(لازم فولدر <b dir="ltr">videos</b> يبقى جنب الملف)</span></div>';
+          if (!/^https?:/i.test(link) && stage.contains(vEl)) stage.innerHTML = '<div class="p-8 text-center text-white/80 text-sm leading-7" dir="rtl">🎬 الفيديو ده بيشتغل على الموقع المرفوع بس</div>';
         });
         if (vEl && isSealedVideo(link)) unsealVideo(link).then(u => { if (vEl.isConnected) vEl.src = u; }).catch(() => vEl.dispatchEvent(new Event('error')));
       } else {
