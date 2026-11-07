@@ -2101,6 +2101,40 @@ body.style-landscape #portfolioSection { isolation: isolate; }
       body.style-landscape .bts-card:hover { transform: none; }
     }
   </style>
+  <style id="proPolishV52">
+    /* ===== Pro polish v52 — UX quality pass (touch targets, legibility, safe areas, icons) ===== */
+
+    /* Touch targets: hero photo dots keep their 8px look but get a 28px hit area */
+    .ls-dots button { position: relative; }
+    .ls-dots button::before { content: ''; position: absolute; inset: -10px; }
+    body.style-landscape a, body.style-landscape button { -webkit-tap-highlight-color: transparent; }
+
+    /* Legibility floor: small labels no smaller than ~11.5–12px */
+    body.style-landscape .ls-chip small { font-size: 12px !important; }
+    body.style-landscape .ls-chip b { font-size: 12px !important; }
+    body.style-landscape .ls-tagline { font-size: clamp(11px, 1.05vw, 13px) !important; }
+    @media (max-width: 640px) {
+      body.style-landscape .ls-tagline { font-size: 10.5px !important; letter-spacing: .14em !important; }
+      body.style-landscape .ls-social a span { font-size: 11px !important; }
+      body.style-landscape #navContactBtn { font-size: 12px !important; min-height: 36px; }
+    }
+    body.style-landscape [data-bind-profile="showreelBadge"],
+    body.style-landscape [data-bind-profile="showreelTag"] { font-size: 11px !important; }
+    body.style-landscape #floatingWhatsAppText { font-size: 13px !important; }
+
+    /* Safe areas (iPhone home bar) and nothing hidden behind the floating button */
+    #floatingWhatsAppBar { bottom: max(14px, env(safe-area-inset-bottom)) !important; }
+    @media (max-width: 767px) {
+      body.style-landscape footer { padding-bottom: calc(76px + env(safe-area-inset-bottom)) !important; }
+    }
+
+    /* Consistent line icon instead of the 💬 emoji (renders the same on every phone) */
+    .pro-ic-wrap { display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+    .pro-ic { width: 1.05em; height: 1.05em; vertical-align: -0.15em; flex: 0 0 auto; }
+      .pro-ic-acc { color: var(--accent); }
+    .pro-ic-ok { color: #4ade80; }
+    .ls-social a i .pro-ic { width: 1.25em; height: 1.25em; }
+</style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased style-landscape glass-on aurora-on">
 
@@ -9110,4 +9144,50 @@ body.style-landscape #portfolioSection { isolation: isolate; }
     loadWeather();
   </script>
 
+  <script id="proPolishV52js">
+  /* Swap emoji used as icons for crisp line icons. Visitors only — never in Owner edit mode. */
+  (function () {
+    var A = ' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
+    var ICONS = {
+      '\uD83D\uDCAC': '<svg class="pro-ic"' + A + '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg>',
+      '\u26A1': '<svg class="pro-ic pro-ic-acc"' + A + '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>',
+      '\u2705': '<svg class="pro-ic pro-ic-ok"' + A + '<circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg>',
+      '\uD83D\uDCCD': '<svg class="pro-ic pro-ic-acc"' + A + '<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>'
+    };
+    var KEYS = Object.keys(ICONS), RE = new RegExp('(' + KEYS.join('|') + ')\uFE0F?', 'g');
+    function editing() { return document.body.classList.contains('owner-mode-active') || (typeof ownerMode !== 'undefined' && ownerMode); }
+    function hasEmo(t) { for (var i = 0; i < KEYS.length; i++) if (t.indexOf(KEYS[i]) > -1) return true; return false; }
+    function swap(root) {
+      if (!root || editing()) return;
+      var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+        acceptNode: function (n) {
+          var p = n.parentElement;
+          if (!p || !hasEmo(n.nodeValue)) return NodeFilter.FILTER_REJECT;
+          if (!p.closest('a,button,#contactSection') || p.closest('[contenteditable="true"],textarea,input,select,option,script,style,#pinModal')) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      var list = []; while (w.nextNode()) list.push(w.currentNode);
+      list.forEach(function (n) {
+        var frag = document.createDocumentFragment(), last = 0, t = n.nodeValue, m;
+        RE.lastIndex = 0;
+        while ((m = RE.exec(t))) {
+          if (m.index > last) frag.appendChild(document.createTextNode(t.slice(last, m.index)));
+          var s = document.createElement('span'); s.className = 'pro-ic-wrap'; s.innerHTML = ICONS[m[1]]; frag.appendChild(s);
+          last = RE.lastIndex;
+        }
+        if (last < t.length) frag.appendChild(document.createTextNode(t.slice(last)));
+        n.parentNode.replaceChild(frag, n);
+      });
+    }
+    var queued = false;
+    function run() { queued = false; swap(document.body); }
+    function start() {
+      run();
+      new MutationObserver(function () { if (!queued) { queued = true; requestAnimationFrame(run); } })
+        .observe(document.body, { childList: true, subtree: true, characterData: true });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+  })();
+  </script>
 </body></html>
